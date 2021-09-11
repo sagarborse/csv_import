@@ -1,0 +1,67 @@
+version: '3.5'
+services:
+  importer-service:
+    build: .
+    restart: always
+    command: bash -c "/bin/bash start.sh"
+    container_name: importerservice
+    volumes:
+      - .:/importerservice
+    ports:
+      - "5000:80"
+      - "1080:1080"
+    networks:
+      - web-db-net
+    env_file:
+      - .env
+
+  worker:
+    image: worker
+    build: .
+    restart: always
+    command: bash -c "/bin/bash celerystart.sh"
+    container_name: worker
+    volumes:
+      - .:/importerservice
+    networks:
+      - web-db-net
+    depends_on:
+      - importer-service
+    env_file:
+      - .env
+
+  beat:
+    image: beat
+    build: .
+    restart: always
+    command: bash -c "/bin/bash celeryschedulerstart.sh"
+    container_name: beat
+    volumes:
+      - .:/importerservice
+    networks:
+      - web-db-net
+    depends_on:
+      - importer-service
+    env_file:
+      - .env
+
+  celery-flower:
+    image: jcalazan/django
+    build: .
+    ports:
+      - "5555:5555"
+    volumes:
+      - .:/importerservice
+    expose:
+      - 5555
+    command: bash -c  "/bin/bash flowerstart.sh"
+    depends_on:
+      - worker
+    networks:
+      - web-db-net
+    env_file:
+      - .env
+
+networks:
+    web-db-net:
+      name: "web_db_net"
