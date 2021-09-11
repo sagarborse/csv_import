@@ -17,8 +17,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 MAIN_DIR = Path(__file__).resolve().parent.parent.parent
 
-if os.path.exists(os.path.join(MAIN_DIR, '.env')):
-    environ.Env.read_env(os.path.join(MAIN_DIR, '.env'))
+if os.path.exists(os.path.join(MAIN_DIR, 'env.txt')):
+    environ.Env.read_env(os.path.join(MAIN_DIR, 'env.txt'))
 env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
