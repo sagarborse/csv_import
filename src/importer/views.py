@@ -27,5 +27,7 @@ class CsvViewSet(ListAPIView):
 
     @method_decorator(cache_page(60 * 60 * 2))
     def get(self, *args, **kwargs):
+        im = ImportCsv()
+        im.import_csv_to_db()
         return super().get(*args, **kwargs)
 

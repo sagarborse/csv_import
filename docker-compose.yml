@@ -1,5 +1,20 @@
 version: '3.5'
 services:
+  comm-redis:
+    image: redis:alpine
+    networks:
+      - web-db-net
+  comm-postgres:
+    image: postgres:11.4
+    container_name: comm-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pger0s1ntl
+      POSTGRES_DB: otp
+    ports:
+      - "15432:5432"
+    networks:
+      - web-db-net
   importer-service:
     build: .
     restart: always

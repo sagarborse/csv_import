@@ -20,8 +20,8 @@ def import_csv_async(self):
 
 
 @shared_task(name = "print_msg_main")
-def print_message(message, *args, **kwargs):
-  print(f"Celery is working!! Message is {message}")
+def print_message(*args, **kwargs):
+  print(f"Celery is working!! Message is Hewllo")
 
 
 
