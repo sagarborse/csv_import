@@ -9,7 +9,6 @@ class CsvFileSerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    client = serializers.CharField(source='Client.id')
     class Meta:
         model = Image
         fields = ['image', 'title', 'description', 'client', 'created']

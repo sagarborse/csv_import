@@ -1,41 +1,31 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
+from .models import Image
 from .import_csv import  ImportCsv
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+from rest_framework.authentication import TokenAuthentication
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from .serializers import ImageSerializer
 
 
 # Create your views here.
 
 
-class CsvViewSet(APIView):
+class CsvViewSet(ListAPIView):
     """
     This viewset automatically provides `list` and `retrieve` actions.
     """
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    authenticatiopn_class = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    pagination_class = PageNumberPagination
 
-    def get(self, request, *args, **kwargs):
-        '''
-        List all the todo items for given requested user
-        '''
-        im_obj = ImportCsv()
-        im_obj.import_csv_to_db()
+    @method_decorator(cache_page(60 * 60 * 2))
+    def get(self, *args, **kwargs):
+        return super().get(*args, **kwargs)
 
-        return Response({'hello': 'there'}, status=status.HTTP_200_OK)
-
-    # 2. Create
-    def post(self, request, *args, **kwargs):
-        '''
-        Create the Todo with given todo data
-        '''
-        # data = {
-        #     'task': request.data.get('task'),
-        #     'completed': request.data.get('completed'),
-        #     'user': request.user.id
-        # }
-        # serializer = TodoSerializer(data=data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response({'hello2': 'there2'}, status=status.HTTP_400_BAD_REQUEST)
