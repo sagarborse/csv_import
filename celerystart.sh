@@ -7,4 +7,4 @@ if [[ ! -e logs/elements.log ]]; then
 fi
 
 cd /elements/src/
-celery -A core worker -l info -Q ${MAIL_QUEUE},${SMS_QUEUE},${SCHEDULER_QUEUE},${PUSH_QUEUE} --concurrency=${CELERY_CONCURRENCY}
+celery -A core worker -l info -Q csv_queue  --concurrency=1
