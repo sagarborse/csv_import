@@ -19,4 +19,4 @@ python -u manage.py migrate
 python  manage.py collectstatic --noinput
 
 #gunicorn --workers=${WORKERS} -b 0.0.0.0:${APP_PORT} --access-logfile /elements/logs/gunicorn-access.logs --error-logfile /elements/logs/gunicorn-errors.logs core.wsgi
-python -u /commservice/src/manage.py runserver 0.0.0.0:80
+python -u /elements/src/manage.py runserver 0.0.0.0:80

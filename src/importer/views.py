@@ -1,9 +1,6 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import Image
-from .import_csv import  ImportCsv
+from .import_csv import ImportCsv
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
@@ -30,4 +27,3 @@ class CsvViewSet(ListAPIView):
         im = ImportCsv()
         im.import_csv_to_db()
         return super().get(*args, **kwargs)
-

@@ -22,11 +22,12 @@ class ImportCsv(object):
                     for chunk in reader:
                         images = chunk.to_dict('record')
                         for image in images:
-                            serializer = ImageSerializer(data={'image' : image['image'], 'title' : image['title'],
-                                                        'description' : image['description'], 'client': csv['id']})
+                            serializer = ImageSerializer(data={'image': image['image'], 'title': image['title'],
+                                                               'description': image['description'],
+                                                               'client': csv['id']})
                             if serializer.is_valid():
                                 images_list.append(Image(image=image['image'], title=image['title'],
-                                                        description=image['description'], client=client))
+                                                         description=image['description'], client=client.pk))
                             else:
                                 print(serializer.errors)
                                 self.logger.info(serializer.errors)

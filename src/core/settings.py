@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'elements',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # host.docker.internal
-        'PORT': '5432',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),  #
+        'PORT': env('DB_PORT'),
     },
 }
 
@@ -236,3 +236,5 @@ LOGGING = {
         },
     },
 }
+STATIC_ROOT = env('STATIC_ROOT')
+STATIC_URL = '/static/'
