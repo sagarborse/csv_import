@@ -6,11 +6,9 @@ The data consists of:
 Image
 Title
 Description (optional)
-The spreadsheet is accessible as a CSV file through the following link: https://docs.google.com
-/spreadsheet/ccc?
-key=0Aqg9JQbnOwBwdEZFN2JKeldGZGFzUWVrNDBsczZxLUE&single=true&gid=0&output=csv
+The spreadsheet is accessible as a CSV file through the following link: https://docs.google.com/spreadsheet/ccc?key=0Aqg9JQbnOwBwdEZFN2JKeldGZGFzUWVrNDBsczZxLUE&single=true&gid=0&output=csv
 
-The Task
+###The Task
 Because the CSV could potentially be moved to another location, replaced by another one or it could be
 temporally unavailable an API should be implemented in between. Build a RESTful JSON API in Django t
 hat will be used by the mobile application to fetch the CSV contents.
